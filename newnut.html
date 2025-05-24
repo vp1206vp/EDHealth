@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mid-Day Meal Nutritional Calculator</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+        }
+        header {
+            background-color: #005f73;
+            color: #edf6f9;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .food-list {
+            margin-bottom: 20px;
+        }
+        .food-list label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .food-list select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .button {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button button {
+            padding: 10px 20px;
+            background-color: #005f73;
+            color: #edf6f9;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .result {
+            background-color: #f1faee;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .result h3 {
+            margin-top: 0;
+            color: #006d77;
+        }
+        .plate {
+            margin-top: 20px;
+        }
+        .plate-item {
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            background-color: #f1faee;
+            border-radius: 5px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #005f73;
+            color: #edf6f9;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Mid-Day Meal Nutritional Calculator</h1>
+</header>
+
+<div class="container">
+    <div class="food-list">
+        <label for="rice">Rice (grams):</label>
+        <input type="number" id="rice" min="0" value="0">
+        
+        <label for="dal">Dal (grams):</label>
+        <input type="number" id="dal" min="0" value="0">
+        
+        <label for="vegetable">Vegetable (grams):</label>
+        <input type="number" id="vegetable" min="0" value="0">
+        
+        <label for="fruit">Fruit (grams):</label>
+        <input type="number" id="fruit" min="0" value="0">
+        
+        <label for="milk">Milk (ml):</label>
+        <input type="number" id="milk" min="0" value="0">
+        
+        <label for="curd">Curd (grams):</label>
+        <input type="number" id="curd" min="0" value="0">
+        
+        <!-- Additional food items -->
+        <label for="eggs">Eggs (pieces):</label>
+        <input type="number" id="eggs" min="0" value="0">
+        
+        <label for="bread">Bread (grams):</label>
+        <input type="number" id="bread" min="0" value="0">
+        
+        <label for="butter">Butter (grams):</label>
+        <input type="number" id="butter" min="0" value="0">
+        
+        <label for="chicken">Chicken (grams):</label>
+        <input type="number" id="chicken" min="0" value="0">
+        
+        <label for="fish">Fish (grams):</label>
+        <input type="number" id="fish" min="0" value="0">
+        
+        <!-- Additional food items -->
+        <label for="potato">Potato (grams):</label>
+        <input type="number" id="potato" min="0" value="0">
+        
+        <label for="spinach">Spinach (grams):</label>
+        <input type="number" id="spinach" min="0" value="0">
+        
+        <label for="carrot">Carrot (grams):</label>
+        <input type="number" id="carrot" min="0" value="0">
+        
+        <label for="banana">Banana (grams):</label>
+        <input type="number" id="banana" min="0" value="0">
+        
+        <label for="apple">Apple (grams):</label>
+        <input type="number" id="apple" min="0" value="0">
+        
+        <!-- Add more food items as needed -->
+    </div>
+
+    <div class="button">
+        <button onclick="calculateNutrition()">Calculate Nutrition</button>
+    </div>
+
+    <div class="result" id="result"></div>
+</div>
+
+<footer>
+    <p>Mid-Day Meal Nutritional Calculator &copy; 2024</p>
+</footer>
+
+<script>
+    function calculateNutrition() {
+        var rice = parseInt(document.getElementById("rice").value);
+        var dal = parseInt(document.getElementById("dal").value);
+        var vegetable = parseInt(document.getElementById("vegetable").value);
+        var fruit = parseInt(document.getElementById("fruit").value);
+        var milk = parseInt(document.getElementById("milk").value);
+        var curd = parseInt(document.getElementById("curd").value);
+        
+        // Additional food items
+        var eggs = parseInt(document.getElementById("eggs").value);
+        var bread = parseInt(document.getElementById("bread").value);
+        var butter = parseInt(document.getElementById("butter").value);
+        var chicken = parseInt(document.getElementById("chicken").value);
+        var fish = parseInt(document.getElementById("fish").value);
+        
+        // More additional food items
+        var potato = parseInt(document.getElementById("potato").value);
+        var spinach = parseInt(document.getElementById("spinach").value);
+        var carrot = parseInt(document.getElementById("carrot").value);
+        var banana = parseInt(document.getElementById("banana").value);
+        var apple = parseInt(document.getElementById("apple").value);
+        
+        var totalCalories = (rice * 3.5) + (dal * 1.5) + (vegetable * 0.5) + (fruit * 0.5) + (milk * 1.5) + (curd * 1) +
+                            (eggs * 70) + (bread * 2.5) + (butter * 7) + (chicken * 120) + (fish * 100) +
+                            (potato * 0.1) + (spinach * 0.1) + (carrot * 0.1) + (banana * 0.1) + (apple * 0.3);
+        
+        var totalProtein = (rice * 7) + (dal * 6) + (vegetable * 1) + (fruit * 0.5) + (milk * 4) + (curd * 4) +
+                            (eggs * 6) + (bread * 10) + (butter * 0.5) + (chicken * 20) + (fish * 25) +
+                            (potato * 0.1) + (spinach * 0.1) + (carrot * 0.1) + (banana * 0.1) + (apple * 0.3);
+        
+        document.getElementById("totalCalories").value = totalCalories.toFixed(2);
+        document.getElementById("totalProtein").value = totalProtein.toFixed(2);
+        
+        var resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = "<h2>Nutritional Summary</h2>";
+        resultDiv.innerHTML += "<p>Total Calories: " + totalCalories.toFixed(2) + " kcal</p>";
+        resultDiv.innerHTML += "<p>Total Protein: " + totalProtein.toFixed(2) + " grams</p>";
+    }
+</script>
+
+</body>
+</html>

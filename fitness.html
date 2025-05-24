@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    #fitnessTracker {
+      margin-bottom: 1em;
+      background-color: #fff;
+      padding: 1em;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #results {
+      border: 1px solid #000;
+      padding: 1em;
+      margin-top: 1em;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    label, input, select {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    h1, h2 {
+      color: #4CAF50;
+    }
+  </style>
+  <script>
+    const form = document.getElementById('fitnessTracker');
+    const foodList = document.getElementById('foodList');
+    const addFood = document.getElementById('addFood');
+    const calculate = document.getElementById('calculate');
+    const results = document.getElementById('results');
+
+    let foodItems = [];
+
+    addFood.addEventListener('click', () => {
+      const foodName = prompt('Enter the name of the food item:');
+      const foodQuantity = prompt('Enter the quantity of the food item (in grams):');
+      const foodItem = {name: foodName, quantity: foodQuantity};
+      foodItems.push(foodItem);
+      const li = document.createElement('li');
+      li.textContent = `${foodName}: ${foodQuantity}g`;
+      foodList.appendChild(li);
+    });
+
+    calculate.addEventListener('click', () => {
+      let totalCarbs = 0;
+      let totalFat = 0;
+      foodItems.forEach(foodItem => {
+        // You would need to look up the carb and fat content of each food item here
+        // and add it to the totalCarbs and totalFat variables accordingly.
+      });
+      results.innerHTML = `
+        <p>Total carbs: ${totalCarbs}g</p>
+        <p>Total fat: ${totalFat}g</p>
+      `;
+    });
+  </script>
+</head>
+<body>
+  <!-- HTML code goes here -->
+  <h1>Fitness Tracker</h1>
+  <form id="fitnessTracker">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="age">Age:</label><br>
+    <input type="number" id="age" name="age"><br>
+    <label for="gender">Gender:</label><br>
+    <select id="gender" name="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select><br>
+    <label for="height">Height (in cm):</label><br>
+    <input type="number" id="height" name="height"><br>
+    <label for="weight">Weight (in kg):</label><br>
+    <input type="number" id="weight" name="weight"><br>
+    <label for="meals">Number of meals eaten per day:</label><br>
+    <input type="number" id="meals" name="meals"><br>
+    <label for="sleep">Number of hours slept per day:</label><br>
+    <input type="number" id="sleep" name="sleep"><br>
+    <h2>Food intake for today:</h2>
+    <div id="foodList"></div>
+    <button type="button" id="addFood">Add food</button>
+    <button type="button" id="calculate">Calculate</button>
+  </form>
+  <div id="results"></div>
+</body>
+</html>

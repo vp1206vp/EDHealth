@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="regstyle.css">
+    <title>Camp Registration</title>
+</head>
+<script>
+  function getFutureDate(monthsToAdd) {
+    const date = new Date();
+    date.setMonth(date.getMonth() + monthsToAdd);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("date-blood").textContent = getFutureDate(2);      // Blood donation
+    document.getElementById("date-checkup").textContent = getFutureDate(3);    // Full body checkup
+    document.getElementById("date-hygiene").textContent = getFutureDate(4);    // Hygiene camp
+    document.getElementById("date-vaccine").textContent = getFutureDate(5);    // Vaccination
+  });
+</script>
+
+<body>
+
+    <!-- Header -->
+    <header style="background-color: #005f73; color: #f1faee;">
+        <h1>Camp Registration</h1>
+    </header>
+
+    <!-- Camp Sections -->
+    <section class="camp" id="bloodDonationCamp">
+        <div class="one">
+        <h2>Blood Donation Camp</h2>
+        <p>Join us in saving lives - a small act that makes a big difference!</p>
+        <p>Date: <span id="date-blood"></span> </p>
+        <a href="registrationForm.html" class="btn">Register</a>
+        </div>
+        <img src="bloodcamp.jpeg" alt="Blood Donation Camp Image">
+    </section>
+
+    <section class="camp" id="fullBodyCheckupCamp">
+        <div class="one">
+            <h2>Full Body Checkup Camp</h2>
+            <p>Ensure your well-being. 
+            "Unlock a healthier, happier you with our comprehensive full body checkup - your proactive path to well-being starts here!"</p>
+            <p>Date: <span id="date-checkup"></span></p>
+            <a href="registrationForm.html" class="btn">Register</a>
+        </div>
+        <img src="fullbodycheckup.jpeg" alt="Full Body Checkup Camp Image">
+    </section>
+
+    <section class="camp" id="sanitaryNapkinCamp">
+        <div class="one"><h2>Menstrual Hygiene Camp</h2>
+        <p>"Empowering women through knowledge and access to menstrual hygiene at our camp for a healthier and more confident tomorrow."</p>
+        <p>Date: <span id="date-hygiene"></span></p>
+        <a href="registrationForm.html" class="btn">Register</a>
+    </div>
+        <img src="menstrualhygienecamp.jpeg" alt="Menstrual Hygiene Camp Image">
+    </section>
+
+    <section class="camp" id="vaccinationCamp">
+        <div class="one"><h2>Vaccination Camp</h2>
+        <p>"Join us at the vaccination camp and be a superhero for your community – get vaccinated and protect yourself and others!"</p>
+        <p>Date: <span id="date-vaccine"></span></p>
+        <a href="registrationForm.html" class="btn">Register</a>
+    </div>
+        <img src="vaccinationcamp.jpeg" alt="Vaccination Camp Image">
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: #eae2b7; color: #005f73;">
+        <p style="margin-top: -5px">&copy; 2024 Camp Registration. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

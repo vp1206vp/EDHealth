@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mental Health Awareness</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #005f73; /* Background color */
+    color: #edf6f9; /* Text color */
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    color:#006d77;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  h1, h2 {
+    text-align: center;
+    color: #bae5e9;
+  }
+  form {
+    margin-top: 20px;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  input[type="text"], input[type="email"], input[type="number"], textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #555;
+  }
+  input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus, textarea:focus {
+    outline: none;
+    border-color: #4CAF50;
+  }
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  header, footer {
+    background-color: #005f73;
+    color: #edf6f9;
+    text-align: center;
+    padding: 10px 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1> EdHealth</h1>
+</header>
+
+<div class="container">
+  <h2>Mental Health Awareness</h2>
+  <p>This website aims to raise awareness about mental health and provide support to those in need.</p>
+  
+  <h2>Feedback Form</h2>
+  <form id="feedbackForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    
+    <label for="mentalHealth">How do you rate your mental health today? (1-10):</label>
+    <input type="number" id="mentalHealth" name="mentalHealth" min="1" max="10" required>
+    
+    <label for="bloodPressure">What is your current blood pressure?</label>
+    <input type="text" id="bloodPressure" name="bloodPressure">
+    
+    <label for="mentalStress">Do you experience any mental stress or anxiety? If yes, please describe:</label>
+    <textarea id="mentalStress" name="mentalStress" rows="4"></textarea>
+    
+    <label for="feedback">Additional Feedback:</label>
+    <textarea id="feedback" name="feedback" rows="4" required></textarea>
+    
+    <input type="submit" value="Submit" onclick="alert('Form Submitted')">
+  </form>
+</div>
+
+<footer>
+  <p>edhealth - All rights reserved</p>
+</footer>
+
+<script>
+  document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+    
+    // Get form values
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var mentalHealth = document.getElementById('mentalHealth').value;
+    var bloodPressure = document.getElementById('bloodPressure').value;
+    var mentalStress = document.getElementById('mentalStress').value;
+    var feedback = document.getElementById('feedback').value;
+    
+    // Log the data to console (you can send this to a server for processing)
+    console.log("Name: " + name);
+    console.log("Email: " + email);
+    console.log("Mental Health: " + mentalHealth);
+    console.log("Blood Pressure: " + bloodPressure);
+    console.log("Mental Stress: " + mentalStress);
+    console.log("Feedback: " + feedback);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mid-Day Meal Nutritional Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+        }
+        header {
+            background-color: #005f73;
+            color: #edf6f9;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .food-list {
+            margin-bottom: 20px;
+        }
+        .food-list label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .food-list select, .food-list input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        .button {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button button {
+            padding: 10px 20px;
+            background-color: #005f73;
+            color: #edf6f9;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .result {
+            background-color: #f1faee;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .result h3 {
+            margin-top: 0;
+            color: #006d77;
+        }
+        .plate {
+            margin-top: 20px;
+        }
+        .plate-item {
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            background-color: #f1faee;
+            border-radius: 5px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #005f73;
+            color: #edf6f9;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mid-Day Meal Nutritional Calculator</h1>
+    </header>
+    <div class="container">
+        <div class="food-list">
+            <label for="food-item">Select Food Item:</label>
+            <select id="food-item">
+                <option value="0">Select food item</option>
+                <option value="1">Rice (1 serving)</option>
+                <option value="2">Roti (1 piece)</option>
+                <option value="3">Dal (1 serving)</option>
+                <option value="4">Eggs (1 piece)</option>
+                <option value="5">Chicken (1 serving)</option>
+                <option value="6">Fish (1 serving)</option>
+                <option value="7">Beef (1 serving)</option>
+                <option value="8">Paneer (1 serving)</option>
+                <option value="9">Mixed Vegetable Salad (1 serving)</option>
+                <option value="10">Fruit Salad (1 serving)</option>
+                <option value="11">Yogurt (1 serving)</option>
+                <option value="12">Bread (1 slice)</option>
+                <option value="13">Butter (1 tablespoon)</option>
+                <option value="14">Cheese (1 slice)</option>
+                <option value="15">Tomato Soup (1 serving)</option>
+                <option value="16">Orange Juice (1 glass)</option>
+                <option value="17">Milk (1 cup)</option>
+                <option value="18">Almonds (10 pieces)</option>
+                <option value="19">Broccoli (1 cup)</option>
+            </select>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" min="1" value="1">
+        </div>
+        <div class="button">
+            <button type="button" onclick="addFood()">Add Food Item</button>
+            <button type="button" onclick="clearPlate()">Clear Plate</button>
+        </div>
+        <div class="result" id="nutrition-result"></div>
+        <div class="plate" id="plate"></div>
+    </div>
+    <footer style="background-color: #eae2b7; color: #005f73; padding: 20px; text-align: center; position: fixed; width: 100%; bottom: 0;">
+        <p style="margin-top: -5px">&copy;EdHealth. All rights reserved.</p>
+    </footer>
+    <script>
+        // Predefined nutritional values for each food item (per serving)
+        const nutritionalValues = {
+            1: { name: "Rice", calories: 200, protein: 5, carbs: 45, fat: 1 },
+            2: { name: "Roti", calories: 150, protein: 4, carbs: 30, fat: 1 },
+            3: { name: "Dal", calories: 100, protein: 3, carbs: 20, fat: 1 },
+            4: { name: "Eggs", calories: 70, protein: 6, carbs: 1, fat: 5 },
+            5: { name: "Chicken", calories: 200, protein: 20, carbs: 0, fat: 10 },
+            6: { name: "Fish", calories: 180, protein: 25, carbs: 0, fat: 8 },
+            7: { name: "Beef", calories: 250, protein: 30, carbs: 0, fat: 15 },
+            8: { name: "Paneer", calories: 150, protein: 15, carbs: 5, fat: 10 },
+            9: { name: "Mixed Vegetable Salad", calories: 50, protein: 3, carbs: 10, fat: 1 },
+            10: { name: "Fruit Salad", calories: 80, protein: 1, carbs: 20, fat: 0 },
+            11: { name: "Yogurt", calories: 60, protein: 4, carbs: 7, fat: 3 },
+            12: { name: "Bread", calories: 80, protein: 2, carbs: 15, fat: 1 },
+            13: { name: "Butter", calories: 50, protein: 0, carbs: 0, fat: 6 },
+            14: { name: "Cheese", calories: 100, protein: 7, carbs: 1, fat: 8 },
+            15: { name: "Tomato Soup", calories: 70, protein: 2, carbs: 15, fat: 1 },
+            16: { name: "Orange Juice", calories: 90, protein: 1, carbs: 20, fat: 0 },
+            17: { name: "Milk", calories: 120, protein: 8, carbs: 12, fat: 5 },
+            18: { name: "Almonds", calories: 70, protein: 3, carbs: 2, fat: 6 },
+            19: { name: "Broccoli", calories: 55, protein: 4, carbs: 10, fat: 1 }
+        };
+
+        let totalCalories = 0;
+        let totalProtein = 0;
+        let totalCarbs = 0;
+        let totalFat = 0;
+
+        function addFood() {
+            const foodItem = document.getElementById("food-item").value;
+            const quantity = parseInt(document.getElementById("quantity").value);
+            if (foodItem == 0 || quantity <= 0) return; // No food item selected or invalid quantity
+
+            // Add nutritional values of selected food item to totals
+            totalCalories += nutritionalValues[foodItem].calories * quantity;
+            totalProtein += nutritionalValues[foodItem].protein * quantity;
+            totalCarbs += nutritionalValues[foodItem].carbs * quantity;
+            totalFat += nutritionalValues[foodItem].fat * quantity;
+
+            // Display the result
+            const resultDiv = document.getElementById("nutrition-result");
+            resultDiv.innerHTML = "<h3>Total Nutritional Value</h3>" +
+                "<p>Calories: " + totalCalories.toFixed(2) + "</p>" +
+                "<p>Protein (g): " + totalProtein.toFixed(2) + "</p>" +
+                "<p>Carbohydrates (g): " + totalCarbs.toFixed(2) + "</p>" +
+                "<p>Fat (g): " + totalFat.toFixed(2) + "</p>";
+
+            // Display the item on the plate
+            const plateDiv = document.getElementById("plate");
+            const newItem = document.createElement("div");
+            newItem.classList.add("plate-item");
+            newItem.textContent = nutritionalValues[foodItem].name + " x" + quantity;
+            newItem.setAttribute("data-food", foodItem);
+            newItem.setAttribute("data-quantity", quantity);
+            newItem.addEventListener("click", removeFood);
+            plateDiv.appendChild(newItem);
+        }
+
+        function removeFood() {
+            const foodItem = this.getAttribute("data-food");
+            const quantity = parseInt(this.getAttribute("data-quantity"));
+
+            // Subtract the nutritional values of the selected food item from totals
+            totalCalories -= nutritionalValues[foodItem].calories * quantity;
+            totalProtein -= nutritionalValues[foodItem].protein * quantity;
+            totalCarbs -= nutritionalValues[foodItem].carbs * quantity;
+            totalFat -= nutritionalValues[foodItem].fat * quantity;
+
+            // Update the result
+            const resultDiv = document.getElementById("nutrition-result");
+            resultDiv.innerHTML = "<h3>Total Nutritional Value</h3>" +
+                "<p>Calories: " + totalCalories.toFixed(2) + "</p>" +
+                "<p>Protein (g): " + totalProtein.toFixed(2) + "</p>" +
+                "<p>Carbohydrates (g): " + totalCarbs.toFixed(2) + "</p>" +
+                "<p>Fat (g): " + totalFat.toFixed(2) + "</p>";
+
+            // Remove the item from the plate
+            this.remove();
+        }
+
+        function clearPlate() {
+            // Reset the totals
+            totalCalories = 0;
+            totalProtein = 0;
+            totalCarbs = 0;
+            totalFat = 0;
+
+            // Clear the result
+            const resultDiv = document.getElementById("nutrition-result");
+            resultDiv.innerHTML = "";
+
+            // Clear the plate
+            const plateDiv = document.getElementById("plate");
+            plateDiv.innerHTML = "";
+        }
+    </script>
+</body>
+</html>

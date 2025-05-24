@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Awareness Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #99faee;
+            /* Background color */
+            color: #edf6f9;
+            /* Text color */
+        }
+
+        h1 {
+            text-align: center;
+            color: #006d77;
+            /* Header color */
+        }
+
+        .question {
+            margin-bottom: 20px;
+            color: #333;
+            /* Question color */
+        }
+
+        .options button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            background-color: #005f73;
+            /* Button background color */
+            color: #edf6f9;
+            /* Button text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .options button.correct {
+            background-color: #4CAF50;
+            /* Correct answer background color */
+        }
+
+        .options button.incorrect {
+            background-color: #f44336;
+            /* Incorrect answer background color */
+        }
+
+        #result {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: black;
+            /* Result text color */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Mental Awareness Quiz</h1>
+        <div id="questionsContainer"></div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Define quiz questions, options, and correct answers
+        const questions = [
+            {
+                question: "What is the term used to describe a severe mental health condition that causes disturbances in thinking, behavior, mood, and perception?",
+                options: ["Anxiety disorder", "Bipolar disorder", "Schizophrenia", "Obsessive-compulsive disorder"],
+                answer: "Schizophrenia"
+            },
+            {
+                question: "Which of the following is a symptom of depression?",
+                options: ["Euphoria", "Persistent sadness", "Hyperactivity", "Increased appetite"],
+                answer: "Persistent sadness"
+            },
+            {
+                question: "Which of the following is a symptom of anxiety?",
+                options: ["Sadness", "Worry", "Hyperactivity", "Increased appetite"],
+                answer: "Worry"
+            },
+            {
+                question: "What is the most common type of eating disorder?",
+                options: ["Anorexia nervosa", "Bulimia nervosa", "Binge eating disorder", "Pica"],
+                answer: "Binge eating disorder"
+            },
+            {
+                question: "What is the term used to describe a sudden intense feeling of fear or discomfort?",
+                options: ["Panic attack", "Heart attack", "Anxiety attack", "Nervous breakdown"],
+                answer: "Panic attack"
+            },
+            // Additional questions
+            {
+                question: "What is the term used to describe a mood disorder that causes periods of depression and periods of abnormally elevated mood?",
+                options: ["Schizophrenia", "Anxiety disorder", "Bipolar disorder", "Obsessive-compulsive disorder"],
+                answer: "Bipolar disorder"
+            },
+            {
+                question: "Which of the following is an example of a compulsive behavior?",
+                options: ["Binge eating", "Social withdrawal", "Excessive worrying", "Repetitive hand washing"],
+                answer: "Repetitive hand washing"
+            },
+            {
+                question: "Which neurotransmitter is often associated with feelings of pleasure and reward?",
+                options: ["Dopamine", "Serotonin", "GABA", "Glutamate"],
+                answer: "Dopamine"
+            },
+            {
+                question: "What is the term used to describe a disorder characterized by recurring, unwanted thoughts and repetitive behaviors?",
+                options: ["Anxiety disorder", "Bipolar disorder", "Obsessive-compulsive disorder", "Schizophrenia"],
+                answer: "Obsessive-compulsive disorder"
+            },
+            {
+                question: "What percentage of people will experience a mental health disorder at some point in their lives?",
+                options: ["10%", "25%", "50%", "75%"],
+                answer: "50%"
+            }
+        ];
+
+        // Initialize quiz variables
+        let score = 0;
+
+        // Function to load questions and options
+        function loadQuestions() {
+            const questionsContainer = document.getElementById("questionsContainer");
+
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.classList.add("question");
+                questionDiv.innerHTML = `<p>${index + 1}. ${question.question}</p>`;
+
+                const optionsDiv = document.createElement("div");
+                optionsDiv.classList.add("options");
+
+                question.options.forEach(option => {
+                    const optionButton = document.createElement("button");
+                    optionButton.innerHTML = option;
+                    optionButton.onclick = () => checkAnswer(option, question.answer, optionButton);
+                    optionsDiv.appendChild(optionButton);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+                questionsContainer.appendChild(questionDiv);
+            });
+        }
+
+        // Function to check answer
+        function checkAnswer(option, correctAnswer, button) {
+            const buttons = button.parentElement.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.innerHTML === correctAnswer) {
+                    btn.classList.add("correct");
+                } else if (btn.innerHTML === option) {
+                    btn.classList.add("incorrect");
+                }
+            });
+
+            if (option === correctAnswer) {
+                score++;
+            }
+
+            updateResult();
+        }
+
+        // Function to display result
+        function updateResult() {
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = `You scored ${score} out of ${questions.length}.`;
+
+            // Define feedback messages for different score ranges
+            let feedback = "";
+            if (score === 0) {
+                feedback = "You should learn more about mental health.";
+            } else if (score >= 1 && score <= 3) {
+                feedback = "You have some knowledge about mental health, but there's room for improvement.";
+            } else if (score >= 4 && score <= 6) {
+                feedback = "You have a fair understanding of mental health.";
+            } else if (score >= 7 && score <= 9) {
+                feedback = "You have good knowledge about mental health!";
+            } else if (score === 10) {
+                feedback = "Congratulations! You are a mental health expert!";
+            }
+
+            // Append the feedback message to the result
+            resultElement.innerHTML += `<br>${feedback}`;
+        }
+
+        // Load questions
+        loadQuestions();
+    </script>
+
+</body>
+
+</html>

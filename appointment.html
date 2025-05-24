@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="formstyles.css">
+    <title>Appointment Form</title>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header style="background-color: #005f73; color: #f1faee; padding: 20px; text-align: center;">
+        <h1>Book An Appointment</h1>
+    </header>
+
+    <!-- Registration Form Section -->
+    <section style="padding: 40px; background-color: #f1faee; margin: 20px 0; border-radius: 10px;">
+        <form action="#" method="post" id="campRegistrationForm" onsubmit="return validateForm()">
+
+            <!-- Personal Information -->
+            <fieldset>
+                <legend>Personal Information</legend>
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required><br><br>
+
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required><br><br>
+
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required><br><br>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select><br><br>
+
+                <label for="contactNumber">Contact Number:</label>
+                <input type="tel" id="contactNumber" name="contactNumber" required><br><br>
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required><br><br>
+            </fieldset>
+
+            <!-- Emergency Contact -->
+            <fieldset>
+                <legend>Emergency Contact</legend>
+                <label for="emergencyContactName">Emergency Contact Name:</label>
+                <input type="text" id="emergencyContactName" name="emergencyContactName" required><br><br>
+
+                <label for="emergencyContactNumber">Emergency Contact Number:</label>
+                <input type="tel" id="emergencyContactNumber" name="emergencyContactNumber" required><br><br>
+
+                <label for="relationship">Relationship to the Participant:</label>
+                <input type="text" id="relationship" name="relationship" required><br><br>
+            </fieldset>
+
+            <!-- Health Information -->
+            <fieldset>
+                <legend>Appointment Details</legend>
+                <label for="datetime">Date and Time:</label>
+                <input type="datetime-local" id="datetime" name="datetime" required><br><br>
+
+                <label for="name"> Doctor Name: </label>
+                <input type="text" id="doc" name="doc"><br><br>
+                <label for="medicalConditions">Medical Conditions:</label>
+                <input type="text" id="medicalConditions" name="medicalConditions"><br><br>
+
+                <label for="allergies">Allergies:</label>
+                <input type="text" id="allergies" name="allergies"><br><br>
+
+                <label for="medications">Current Medications:</label>
+                <input type="text" id="medications" name="medications"><br><br>
+
+                <label for="dietaryRestrictions">Dietary Restrictions:</label>
+                <input type="text" id="dietaryRestrictions" name="dietaryRestrictions"><br><br>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <button type="submit" style="display: block; margin-top: 20px; padding: 10px 20px; background-color: #005f73; color: #f1faee; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
+
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: #eae2b7; color: #005f73; padding: 20px; text-align: center; position: fixed; width: 100%; bottom: 0;">
+        <p style="margin-top: -5px">&copy; EdHealth. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function validateForm() {
+            // Validation logic here
+            // For simplicity, let's assume all fields are required
+            var fullName = document.getElementById("fullName").value;
+            var dob = document.getElementById("dob").value;
+            var contactNumber = document.getElementById("contactNumber").value;
+            var email = document.getElementById("email").value;
+            var emergencyContactName = document.getElementById("emergencyContactName").value;
+            var emergencyContactNumber = document.getElementById("emergencyContactNumber").value;
+            var relationship = document.getElementById("relationship").value;
+            var datetime = document.getElementById("datetime").value;
+            var doc = document.getElementById("doc").value;
+            // Check if any of the fields are empty
+            if (fullName == "" || dob == "" || contactNumber == "" || email == "" || emergencyContactName == "" || emergencyContactNumber == "" || relationship == "" || datetime == "" || doc == "") {
+                alert("Please fill out all fields.");
+                return false; // Prevent form submission
+            }
+
+            // Check if date of appointment is prior to the current date
+            var selectedDate = new Date(datetime);
+            var currentDate = new Date();
+            if (selectedDate < currentDate) {
+                alert("Invalid Date.");
+                return false; // Prevent form submission
+            }
+
+            // Add additional validation logic here if needed
+            alert("Appointment booked"); // Prompt appointment booked
+            return true; // Allow form submission
+        }
+    </script>
+
+</body>
+
+</html>
